@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="GlobalSolution2.0.Application/GlobalSolution2.0.Application.csproj" />
+    <Project Path="GlobalSolution2.0.Domain/GlobalSolution2.0.Domain.csproj" />
+    <Project Path="GlobalSolution2.0.Infrastructure/GlobalSolution2.0.Infrastructure.csproj" />
+    <Project Path="GlobalSolution2.0/GlobalSolution2.0.csproj" />
+  </Folder>
+</Solution>

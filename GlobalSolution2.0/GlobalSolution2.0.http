@@ -1,0 +1,6 @@
+@GlobalSolution2._0_HostAddress = http://localhost:5294
+
+GET {{GlobalSolution2._0_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
