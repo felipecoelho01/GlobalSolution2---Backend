@@ -10,7 +10,6 @@
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
     <Folder Include="Data\Interfaces\" />
-    <Folder Include="Data\Repositores\" />
     <Folder Include="Identity\" />
     <Folder Include="Ioc\" />
     <Folder Include="Messaging\" />
