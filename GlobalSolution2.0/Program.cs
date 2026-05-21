@@ -1,4 +1,6 @@
+using GlobalSolution2._0.Infrastructure.Data.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -13,6 +15,11 @@ builder.Services.AddSwaggerGen();
 
 //builder.Services.AddApplication();
 //builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+});
 
 builder.Services.AddAuthentication(options =>
 {
@@ -40,6 +47,16 @@ builder.Services.AddAuthorization();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    if (!dbContext.Database.CanConnect())
+    { 
+        throw new NotImplementedException("Sem Conexão com o Banco");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
