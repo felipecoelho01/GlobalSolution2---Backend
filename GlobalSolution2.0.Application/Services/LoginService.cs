@@ -1,6 +1,7 @@
 ﻿using GlobalSolution2._0.Application.Interfaces;
 using GlobalSolution2._0.Domain.Entities;
 using GlobalSolution2._0.Domain.Interfaces;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,10 +11,12 @@ namespace GlobalSolution2._0.Application.Services
     public class LoginService : ILoginService
     {
         private readonly ILoginRepository _loginRepository;
+        private readonly IConfiguration _configuration;
 
-        public LoginService(ILoginRepository loginRepository) 
+        public LoginService(ILoginRepository loginRepository, IConfiguration configuration) 
         {
             _loginRepository = loginRepository;
+            _configuration = configuration;
         }
 
         public async Task<LoginModel> Login(LoginModel model)
