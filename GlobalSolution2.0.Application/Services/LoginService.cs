@@ -36,14 +36,15 @@ namespace GlobalSolution2._0.Application.Services
 
                 if (logins.Any())
                 {
-                    var login = logins.Where(_ => _.Email == model.Email && _.Password == model.Password && _.StateCode).FirstOrDefault();
+                    var login = logins.Where(_ => _.Email == model.Email && _.Password == model.Password && _.StateCode == true).FirstOrDefault();
 
                     if (login != null)
                     {
                         result = new LoginModelAPI()
                         {
                             AcessToken = GenerateToken(login.Id.ToString().ToUpper(), login.Email),
-
+                            Email = login.Email,
+                            Role = login.Role,
                         };
                     }
                 }
@@ -84,7 +85,7 @@ namespace GlobalSolution2._0.Application.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<MensagemModel> Register(LoginModel model)
+        public async Task<MensagemModel> Register(LoginModel login)
         {
             try
             {
@@ -92,18 +93,51 @@ namespace GlobalSolution2._0.Application.Services
 
                 var logins = await _loginRepository.List();
 
-                var verifyEmail = logins.Where(_ => _.Email == model.Email).FirstOrDefault();
+                var verifyEmail = logins.Where(_ => _.Email == login.Email).FirstOrDefault();
 
-                if (verifyEmail != null)
+                if(verifyEmail != null)
                     result.Mensagem = "Já existe um usuário com esse E-mail.";
 
-                await _loginRepository.Add(model);
+                login.Id = Guid.NewGuid();
+                await _loginRepository.Add(login);
+
+                if(login.Role == "Empresa")
+        
+
+                if(login.Role == "Usuario")
+
 
                 result.Mensagem = "Usuário cadastrado com sucesso.";
                 return result;     
             }
             catch (Exception ex)
             {
+                throw ex;
+            }
+        }
+
+        public async Task<EmpresaModel> CreateEmpresa(EmpresaModel empresa) 
+        {
+            try 
+            {
+
+                return empresa;
+            } 
+            catch (Exception ex) 
+            { 
+                throw ex; 
+            }
+        }
+
+        public async Task<UsuarioModel> CreateUsuario(UsuarioModel usuario)
+        {
+            try 
+            {
+
+                return usuario;
+            } 
+            catch (Exception ex)
+            { 
                 throw ex;
             }
         }

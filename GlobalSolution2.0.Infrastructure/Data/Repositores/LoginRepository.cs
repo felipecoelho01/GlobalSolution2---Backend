@@ -21,9 +21,17 @@ namespace GlobalSolution2._0.Infrastructure.Data.Repositores
         {
             try
             {
-                login.CreatedOn = DateTime.Now;
-                login.ModifiedOn = DateTime.Now;
-                login.StateCode = true;
+                if(login.Id == null)
+                    login.Id = Guid.NewGuid();
+
+                if (login.CreatedOn == null)
+                    login.CreatedOn = DateTime.Now;
+
+                if (login.ModifiedOn == null)
+                    login.ModifiedOn = DateTime.Now;
+
+                if (login.StateCode == null)
+                    login.StateCode = true;
 
                 await _context.Login.AddAsync(login);
                 await _context.SaveChangesAsync();

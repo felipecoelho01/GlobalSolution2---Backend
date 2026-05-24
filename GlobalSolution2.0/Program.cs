@@ -1,4 +1,8 @@
+using GlobalSolution2._0.Application.Interfaces;
+using GlobalSolution2._0.Application.Services;
+using GlobalSolution2._0.Domain.Interfaces;
 using GlobalSolution2._0.Infrastructure.Data.Context;
+using GlobalSolution2._0.Infrastructure.Data.Repositores;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -9,6 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IEmpresaRepository, EmpresaRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
