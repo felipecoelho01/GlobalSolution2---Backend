@@ -10,5 +10,6 @@ namespace GlobalSolution2._0.Domain.Entities
         public string Nome { get; set; }
         public string Slug { get; set; }
         public string? Icone { get; set; }
+        public List<VagaModel> Vagas { get; set; }
     }
 }

@@ -7,6 +7,7 @@ namespace GlobalSolution2._0.Domain.Entities
     public class UsuarioModel
     {
         public Guid Id { get; set; }
+        public LoginModel Login { get; set; }
         public Guid Login_id { get; set; }
         public string Nome { get; set; }
         public string? Cpf { get; set; }
@@ -17,5 +18,6 @@ namespace GlobalSolution2._0.Domain.Entities
         public string?Curriculo_url { get; set; }
         public string? Resumo { get; set; }
         public DateTime CreatedOn { get; set; }
+        public List<CandidaturaModel> Candidaturas { get; set; }
     }
 }

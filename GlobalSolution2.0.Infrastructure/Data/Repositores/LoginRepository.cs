@@ -21,6 +21,10 @@ namespace GlobalSolution2._0.Infrastructure.Data.Repositores
         {
             try
             {
+                login.CreatedOn = DateTime.Now;
+                login.ModifiedOn = DateTime.Now;
+                login.StateCode = true;
+
                 await _context.Login.AddAsync(login);
                 await _context.SaveChangesAsync();
             }
@@ -34,6 +38,8 @@ namespace GlobalSolution2._0.Infrastructure.Data.Repositores
         {
             try
             {
+                login.ModifiedOn = DateTime.Now;
+
                 _context.Login.Update(login);
                 await _context.SaveChangesAsync();
             } 
