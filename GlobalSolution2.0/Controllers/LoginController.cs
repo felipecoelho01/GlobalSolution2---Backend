@@ -33,5 +33,25 @@ namespace GlobalSolution2._0.Controllers
                 throw ex;
             }
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("/register")]
+        public async Task<IActionResult> Register(LoginModel model)
+        {
+            try
+            {
+                var result = await _service.Register(model);
+
+                if (result == null)
+                    return BadRequest();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
