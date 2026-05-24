@@ -20,6 +20,12 @@ namespace GlobalSolution2._0.Infrastructure.Data.Repositores
         {
             try 
             {
+                if(usuario.Id == null)
+                    usuario.Id = Guid.NewGuid();
+
+                if (usuario.CreatedOn == null)
+                    usuario.CreatedOn = DateTime.Now;
+
                 await _context.Usuario.AddAsync(usuario);
                 await _context.SaveChangesAsync();
             }
