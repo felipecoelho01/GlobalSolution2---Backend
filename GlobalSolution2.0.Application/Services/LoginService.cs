@@ -16,11 +16,15 @@ namespace GlobalSolution2._0.Application.Services
     {
         private readonly ILoginRepository _loginRepository;
         private readonly IConfiguration _configuration;
+        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IEmpresaRepository _empresaRepository;
 
-        public LoginService(ILoginRepository loginRepository, IConfiguration configuration)
+        public LoginService(ILoginRepository loginRepository, IConfiguration configuration, IUsuarioRepository usuarioRepository, IEmpresaRepository empresaRepository)
         {
             _loginRepository = loginRepository;
             _configuration = configuration;
+            _usuarioRepository = usuarioRepository;
+            _empresaRepository = empresaRepository;
         }
 
         public async Task<LoginModelAPI?> Login(LoginModel model)
@@ -87,59 +91,39 @@ namespace GlobalSolution2._0.Application.Services
 
         public async Task<MensagemModel> Register(LoginModel login)
         {
+            MensagemModel result = new MensagemModel();
+
             try
             {
-                MensagemModel result = new MensagemModel();
+                if (string.IsNullOrEmpty(login.Email) || string.IsNullOrEmpty(login.Password))
+                {
+                    result.Mensagem = "Email e senha são obrigatórios.";
+                    return result;
+                }
 
                 var logins = await _loginRepository.List();
 
                 var verifyEmail = logins.Where(_ => _.Email == login.Email).FirstOrDefault();
 
-                if(verifyEmail != null)
+                if (verifyEmail != null)
+                {
                     result.Mensagem = "Já existe um usuário com esse E-mail.";
+                    return result;
+                }
 
                 login.Id = Guid.NewGuid();
+
                 await _loginRepository.Add(login);
 
-                if(login.Role == "Empresa")
-        
-
-                if(login.Role == "Usuario")
-
-
                 result.Mensagem = "Usuário cadastrado com sucesso.";
-                return result;     
+                return result;
             }
             catch (Exception ex)
             {
-                throw ex;
+                result.Mensagem = "Erro na requisição.";
+                return result;
             }
         }
 
-        public async Task<EmpresaModel> CreateEmpresa(EmpresaModel empresa) 
-        {
-            try 
-            {
-
-                return empresa;
-            } 
-            catch (Exception ex) 
-            { 
-                throw ex; 
-            }
-        }
-
-        public async Task<UsuarioModel> CreateUsuario(UsuarioModel usuario)
-        {
-            try 
-            {
-
-                return usuario;
-            } 
-            catch (Exception ex)
-            { 
-                throw ex;
-            }
-        }
     }
 }

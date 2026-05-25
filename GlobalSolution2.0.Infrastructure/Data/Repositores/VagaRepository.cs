@@ -8,54 +8,54 @@ using System.Text;
 
 namespace GlobalSolution2._0.Infrastructure.Data.Repositores
 {
-    public class UsuarioRepository : IUsuarioRepository
+    public class VagaRepository : IVagasRepository
     {
         private readonly AppDbContext _context;
-
-        public UsuarioRepository(AppDbContext context)
+        public VagaRepository(AppDbContext context) 
         {
             _context = context;
         }
-        public async Task Add(UsuarioModel usuario)
-        {
-            try 
-            {
-                if(usuario.Id == null)
-                    usuario.Id = Guid.NewGuid();
 
-                if (usuario.CreatedOn == null)
-                    usuario.CreatedOn = DateTime.Now;
-
-                await _context.Usuario.AddAsync(usuario);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex) 
-            { 
-                throw ex;
-            }
-        }
-
-        public async Task Edit(UsuarioModel usuario)
+        public async Task Add(VagaModel vaga)
         {
             try
             {
-                _context.Usuario.Update(usuario);
+                if (vaga.Id == null)
+                    vaga.Id = Guid.NewGuid();
+
+                if (vaga.CreatedOn == null)
+                    vaga.CreatedOn = DateTime.Now;
+
+                await _context.Vaga.AddAsync(vaga);
                 await _context.SaveChangesAsync();
-            } 
+            }
             catch (Exception ex)
-            { 
+            {
                 throw ex;
             }
         }
 
-        public async Task<List<UsuarioModel>> List()
+        public async Task Edit(VagaModel vaga)
         {
-            try 
+            try
             {
-                return await _context.Usuario.ToListAsync();
-            } 
-            catch (Exception ex) 
-            { 
+                _context.Vaga.Update(vaga);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<VagaModel>> List()
+        {
+            try
+            {
+                return await _context.Vaga.ToListAsync();
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }

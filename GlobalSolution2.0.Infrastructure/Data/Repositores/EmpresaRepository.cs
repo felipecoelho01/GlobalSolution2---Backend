@@ -1,6 +1,7 @@
 ﻿using GlobalSolution2._0.Domain.Entities;
 using GlobalSolution2._0.Domain.Interfaces;
 using GlobalSolution2._0.Infrastructure.Data.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;

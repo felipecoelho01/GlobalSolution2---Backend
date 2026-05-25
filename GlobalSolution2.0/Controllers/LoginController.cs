@@ -37,19 +37,20 @@ namespace GlobalSolution2._0.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("/register")]
-        public async Task<IActionResult> Register(LoginModel model)
+        public async Task<IActionResult> Register([FromBody] LoginModel model)
         {
             try
             {
                 var result = await _service.Register(model);
 
                 if (result == null)
-                    return BadRequest();
+                    return BadRequest(result);
 
                 return Ok(result);
             }
             catch (Exception ex)
             {
+                BadRequest(ex);
                 throw ex;
             }
         }
