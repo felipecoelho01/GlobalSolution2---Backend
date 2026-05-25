@@ -13,7 +13,6 @@
     <Folder Include="Identity\" />
     <Folder Include="Ioc\" />
     <Folder Include="Messaging\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>

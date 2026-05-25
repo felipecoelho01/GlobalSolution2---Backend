@@ -15,16 +15,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<ILoginService, LoginService>();
-builder.Services.AddScoped<IVagasService, VagasService>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+builder.Services.AddScoped<IVagasService, VagasService>();
+builder.Services.AddScoped<IVagasRepository, VagaRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IEmpresaRepository, EmpresaRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-//builder.Services.AddApplication();
-//builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
